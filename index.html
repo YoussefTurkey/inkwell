@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inkwell · A Blog by 10 Writers</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="tailwind.config.js"></script>
+  <script>
+    // Set the theme before the page paints, so it never flashes the wrong colors
+    const saved = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    if (saved === "dark" || (!saved && prefersDark)) {
+      document.documentElement.classList.add("dark");
+    }
+  </script>
+</head>
+<body class="bg-paper text-ink dark:bg-night dark:text-night-ink font-sans antialiased">
+
+  <!-- Navbar -->
+  <header class="sticky top-0 z-30 border-b border-line dark:border-night-line bg-paper/90 dark:bg-night/90 backdrop-blur">
+    <nav class="max-w-6xl mx-auto px-4 md:px-8 h-16 flex items-center justify-between">
+      <a href="#" class="font-display text-2xl font-bold">Inkwell<span class="text-brand dark:text-brand-light">.</span></a>
+      <ul class="hidden md:flex items-center gap-8 text-sm font-medium text-muted dark:text-night-muted">
+        <li><a href="#" class="hover:text-ink dark:hover:text-night-ink">Home</a></li>
+        <li><a href="#articles" class="hover:text-ink dark:hover:text-night-ink">Articles</a></li>
+        <li><a href="#newsletter" class="hover:text-ink dark:hover:text-night-ink">Newsletter</a></li>
+      </ul>
+      <div class="flex items-center gap-2">
+        <button id="themeBtn" aria-label="Toggle theme" class="w-10 h-10 rounded-full border border-line dark:border-night-line grid place-items-center hover:bg-card dark:hover:bg-night-card">
+          <svg class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path stroke-linecap="round" d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </button>
+        <button id="menuBtn" aria-label="Open menu" class="md:hidden w-10 h-10 rounded-full border border-line dark:border-night-line grid place-items-center">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </nav>
+    <ul id="mobileMenu" class="hidden md:hidden border-t border-line dark:border-night-line px-4 py-3 flex-col gap-1 text-sm font-medium">
+      <li><a href="#" class="block py-2">Home</a></li>
+      <li><a href="#articles" class="block py-2">Articles</a></li>
+      <li><a href="#newsletter" class="block py-2">Newsletter</a></li>
+    </ul>
+  </header>
+
+  <!-- Hero -->
+  <section class="max-w-6xl mx-auto px-4 md:px-8 pt-12 md:pt-20 pb-10 md:pb-14">
+    <p class="font-mono text-xs font-medium uppercase tracking-widest text-brand dark:text-brand-light">The Inkwell Journal</p>
+    <h1 class="mt-4 font-display font-bold text-4xl md:text-6xl leading-tight max-w-3xl">Stories, ideas and notes from writers who care.</h1>
+    <p class="mt-5 text-base md:text-lg text-muted dark:text-night-muted max-w-2xl">Read short articles on design, code and life. Search by title, filter by author and sort the way you like.</p>
+    <div class="mt-8 flex flex-wrap gap-8">
+      <div><p id="statPosts" class="font-display text-3xl font-bold">–</p><p class="text-sm text-muted dark:text-night-muted">Articles</p></div>
+      <div><p id="statAuthors" class="font-display text-3xl font-bold">–</p><p class="text-sm text-muted dark:text-night-muted">Writers</p></div>
+      <div><p class="font-display text-3xl font-bold">Weekly</p><p class="text-sm text-muted dark:text-night-muted">New posts</p></div>
+    </div>
+  </section>
+
+  <!-- Articles -->
+  <main id="articles" class="max-w-6xl mx-auto px-4 md:px-8 pb-16">
+    <!-- Toolbar: search, filter, sort -->
+    <form id="toolbar" class="grid gap-3 md:grid-cols-[1fr_200px_200px] p-3 rounded-card bg-card dark:bg-night-card border border-line dark:border-night-line">
+      <label class="relative">
+        <span class="sr-only">Search</span>
+        <svg class="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-muted dark:text-night-muted" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="m20 20-3.5-3.5"/></svg>
+        <input id="search" type="search" placeholder="Search articles…" class="w-full h-11 pl-10 pr-3 rounded-lg bg-paper dark:bg-night border border-line dark:border-night-line text-sm outline-none focus:border-brand dark:focus:border-brand-light">
+      </label>
+      <select id="author" class="h-11 px-3 rounded-lg bg-paper dark:bg-night border border-line dark:border-night-line text-sm outline-none focus:border-brand">
+        <option value="all">All writers</option>
+      </select>
+      <select id="sort" class="h-11 px-3 rounded-lg bg-paper dark:bg-night border border-line dark:border-night-line text-sm outline-none focus:border-brand">
+        <option value="newest">Newest first</option>
+        <option value="oldest">Oldest first</option>
+        <option value="az">Title A–Z</option>
+        <option value="za">Title Z–A</option>
+      </select>
+    </form>
+
+    <div class="mt-6 flex items-center justify-between">
+      <p id="count" class="text-sm text-muted dark:text-night-muted">Loading articles…</p>
+      <button id="clearBtn" type="button" class="hidden text-sm font-semibold text-brand dark:text-brand-light hover:underline">Clear filters</button>
+    </div>
+
+    <div id="grid" class="mt-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"></div>
+
+    <div id="message" class="hidden mt-10 text-center"></div>
+
+    <div class="mt-10 text-center">
+      <button id="moreBtn" class="hidden h-11 px-6 rounded-full bg-ink text-paper dark:bg-night-ink dark:text-night text-sm font-semibold hover:opacity-90">Load more</button>
+    </div>
+  </main>
+
+  <!-- Newsletter -->
+  <section id="newsletter" class="max-w-6xl mx-auto px-4 md:px-8 pb-16">
+    <div class="rounded-card bg-brand-soft dark:bg-brand-deep p-8 md:p-12 grid gap-6 md:grid-cols-2 md:items-center">
+      <div>
+        <h2 class="font-display text-3xl md:text-4xl font-bold">Get one good article every week.</h2>
+        <p class="mt-3 text-muted dark:text-night-muted">No spam. Leave any time.</p>
+      </div>
+      <form id="newsForm" class="flex flex-col sm:flex-row gap-3" novalidate>
+        <input id="email" type="email" placeholder="you@example.com" class="flex-1 h-12 px-4 rounded-full bg-card dark:bg-night-card border border-line dark:border-night-line text-sm outline-none focus:border-brand">
+        <button class="h-12 px-6 rounded-full bg-brand hover:bg-brand-hover text-white text-sm font-semibold">Subscribe</button>
+      </form>
+      <p id="newsMsg" class="md:col-span-2 text-sm font-medium"></p>
+    </div>
+  </section>
+
+  <footer class="border-t border-line dark:border-night-line">
+    <div class="max-w-6xl mx-auto px-4 md:px-8 py-8 flex flex-col md:flex-row gap-3 justify-between text-sm text-muted dark:text-night-muted">
+      <p><span class="font-display font-bold text-ink dark:text-night-ink">Inkwell.</span> Built with HTML, Tailwind CSS and JavaScript.</p>
+      <p>Data from JSONPlaceholder</p>
+    </div>
+  </footer>
+
+  <!-- Post modal -->
+  <div id="modal" class="hidden fixed inset-0 z-40 bg-black/60 p-4 overflow-y-auto">
+    <article class="max-w-2xl mx-auto my-10 rounded-card bg-card dark:bg-night-card border border-line dark:border-night-line overflow-hidden">
+      <div id="modalCover" class="h-40 relative">
+        <button id="closeBtn" aria-label="Close" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/40 text-white text-xl">✕</button>
+      </div>
+      <div id="modalBody" class="p-6 md:p-8"></div>
+    </article>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
